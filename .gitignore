@@ -1,7 +1,11 @@
 .DS_Store
 node_modules
 /dist
-
+/src
+/public
+.vue
+.gitignore
+.json
 
 # local env files
 .env.local
