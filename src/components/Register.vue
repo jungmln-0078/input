@@ -1,52 +1,43 @@
 <template>
   <div class="form">
-      <text-input :inputLabel="'ID'" :inputName="'id'" v-model="id" @setval="setVal"/>
-      <password-input :inputLabel="'비밀번호'" :inputName="'password'" v-model="password" @setval="setVal"/>
-      <input type="submit">
+    <text-input :inputLabel="'ID'" :inputName="'id'" v-model="id" @setval="setVal" :disabled="disabled"/>
+    <password-input :inputLabel="'비밀번호'" :inputName="'password'" v-model="password" @setval="setVal" :disabled="disabled"/>
+    <check-box :inputName="'check1'" :checkList="checkList1" @setval="setVal" :disabled="disabled"/>
+    <check-box :inputName="'check2'" :checkList="checkList2" @setval="setVal" :disabled="disabled"/>
   </div>
 </template>
 
 <script>
-import TextInput from '@/components/TextInput'
-import PasswordInput from '@/components/PasswordInput'
+import TextInput from './TextInput.vue'
+import PasswordInput from './PasswordInput.vue'
+import CheckBox from './CheckBox.vue'
 export default {
     components: {
         TextInput,
-        PasswordInput
+        PasswordInput,
+        CheckBox
+    },
+    props: {
+        disabled: Boolean
     },
     data () {
         return {
-            id: "",
-            password: ""
+            inputValue: {
+                id: "",
+                password: "",
+                check1: [],
+                check2: [],
+            },
+            checkList1: [{id: 'CK101', label: '개인정보 이용 약관 동의'},
+                        {id: 'CK102', label: '서비스 이용 약관 동의'}],
+            checkList2: [{id: 'CK201', label: '광고성 정보 수신 동의'}]
         }
     },
     methods: {
         setVal(newVal, inputName) {
-            this[inputName] = newVal;
+            this.inputValue[inputName] = newVal;
+            this.store.commit('setValue', this.inputValue);
         }
     }
 }
 </script>
-
-<style>
-    .form {
-        margin: 0 auto;
-        width: 45%;
-    }
-    #input {
-        float: left;
-        width: 100%;
-        height: 80px;
-    }
-    #input label {
-        float: left;
-        line-height: 80px;
-        font-size: 18px;
-    }
-    #input input {
-        display: inline;
-        float: right;
-        line-height: 40px;
-        width: 55%;
-    }
-</style>

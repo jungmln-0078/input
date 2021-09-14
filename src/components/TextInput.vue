@@ -1,24 +1,22 @@
 <template>
   <div id="input" class="text-center">
       <label for="">{{ inputLabel }}</label>
-      <input type="text" class="m-3" :inputName="inputName" v-model="value">
+      <input type="text" class="m-3" :inputName="inputName" v-model="value" :disabled="disabled" >
+      <span class="error" v-show="error">필수 항목입니다.</span>
   </div>
 </template>
 
 <script>
 export default {
     props: {
-        inputLabel: {
-            type: String,
-            required: true
-        },
-        inputName: {
-            type: String,
-            required: true
-        },
-        inputValue: {
-            type: String,
-            default: ''
+        inputLabel: String,
+        inputName: String,
+        disabled: Boolean,
+        error: Boolean
+    },
+    data() {
+        return {
+            inputValue: ''
         }
     },
     computed: {
