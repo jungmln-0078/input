@@ -8,7 +8,6 @@
 export default {
     methods: {
         submit() {
-            console.log(this.$parent.$data);
             this.$parent.submit();
         }
     }
