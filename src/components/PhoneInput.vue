@@ -15,14 +15,9 @@
 </template>
 
 <script>
+import { commonInput } from '@/mixins/commonInput';
 export default {
-    props: {
-        inputLabel: String,
-        inputName: String,
-        disabled: Boolean,
-        error: Boolean,
-        isStar: Boolean
-    },
+    mixins: [commonInput],
     data() {
         return {
             phone: {
