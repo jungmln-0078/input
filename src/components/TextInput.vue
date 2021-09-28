@@ -1,7 +1,7 @@
 <template>
-  <div id="input" class="text-center">
+  <div id="input">
       <label for="">{{ inputLabel }}<i style="color: red" v-show="isStar">*</i></label>
-      <input type="text" class="m-3" :ref="inputName" :inputName="inputName" v-model="value" :disabled="disabled" >
+      <input type="text" :ref="inputName" :inputName="inputName" v-model="value" :maxlength="maxLength" :disabled="disabled" >
       <span class="error" v-show="error">필수 항목입니다.</span>
   </div>
 </template>
@@ -13,7 +13,8 @@ export default {
         inputName: String,
         disabled: Boolean,
         error: Boolean,
-        isStar: Boolean
+        isStar: Boolean,
+        maxLength: Number
     },
     data() {
         return {

@@ -1,56 +1,36 @@
-  * {
-    padding: 0;
-    margin: 0;
-  }
-    body {
-      padding: 0;
-      margin: 0;
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    .form {
-        margin: 0 auto;
-        width: 45%;
-        height: 600px;
-    }
-    #checkbox {
-      float: left;
-      width: 100%;
-    }
-    #checkbox span {
-      float: left;
-      width: 100%;
-    }
-    #checkbox span label {
-        padding-left: 6px;
-        padding-top: 6px;
-        line-height: auto;
-        font-size: 16px;
-    }
-    #input {
-        float: left;
-        width: 100%;
-        height: 92px;
-    }
+* { padding: 0; margin: 0; }
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+body { padding: 0; margin: 0; position: relative; width: 100%; height: 100%; }
+.form { margin: 0 auto; width: 380px; height: 600px; }
+#checkbox { float: left; width: 100%; }
+#checkbox span { float: left; width: 100%; }
+#checkbox span label { padding-left: 6px; padding-top: 6px; line-height: auto; font-size: 16px; }
+#input { float: left; width: 100%; height: 98px; }
     #input label {
-        float: left;
-        line-height: 80px;
+        display: block;
+        text-align: left;
+        width: 100%;
+        line-height: 30px;
         font-size: 18px;
     }
     #input input {
         display: inline;
-        float: right;
-        line-height: 40px;
-        width: 55%;
+        text-align: left;
+        margin: 0;
+        line-height: 30px;
+        width: 100%;
     }
     #input span {
-      display: inline-block;
+      display: inline;
+      float: left;
       height: 12px;
-      line-height: 120px;
       font-size: 12px;
       text-align: left;
       color: red;
+    }
+    #input .tel, #input select {
+      width: 50px;
+      height: 30px;
     }
     #submit {
       position: fixed;
@@ -60,9 +40,11 @@
       height: 80px;
     }
     .submit {
-      width: 100%;
-      height: 80px;
-      text-align: center;
+      position: absolute;
+      bottom: 45%;
+      left: 41%;
+      width: 250px;
+      height: 60px;
     }
     .alert {
       padding: 0;

@@ -8,6 +8,12 @@ export default new Vuex.Store({
         inputValue: {
             id: "",
             password: "",
+            name: "",
+            phone: {
+              tel1: "",
+              tel2: "",
+              tel3: ""
+            },
             check1: [],
             check2: [],
         }

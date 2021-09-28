@@ -5,12 +5,14 @@
     <Header />
     <hr>
     <div class="form">
-      <text-input ref="inp01" :inputLabel="'ID'" :inputName="'id'" v-model="id" @setval="setVal" :disabled="isSubmitted" :error="idError" :isStar="true"/>
-      <password-input ref="inp02" :inputLabel="'비밀번호'" :inputName="'password'" v-model="password" @setval="setVal" :disabled="isSubmitted" :error="passwordError" :isStar="true"/>
-      <check-box :inputName="'check1'" :checkList="checkList1" @setval="setVal" :disabled="isSubmitted"/>
-      <check-box :inputName="'check2'" :checkList="checkList2" @setval="setVal" :disabled="isSubmitted"/>
+      <text-input ref="inp01" :inputLabel="'ID'" :inputName="'id'" v-model="id" @setval="setVal" :maxLength="12" :disabled="disabled" :error="idError" :isStar="true"/>
+      <password-input ref="inp02" :inputLabel="'비밀번호'" :inputName="'password'" v-model="password" @setval="setVal" :maxLength="20" :disabled="disabled" :error="passwordError" :isStar="true"/>
+      <text-input ref="inp03" :inputLabel="'성명'" :inputName="'name'" v-model="name" @setval="setVal" :maxLength="16" :disabled="disabled" :error="nameError" :isStar="true"/>
+      <phone-input ref="inp04" :inputLabel="'전화번호'" :inputName="'phone'" v-model="phone" @setval="setVal" :disabled="disabled" :error="phoneError" :isStar="true" />
+      <check-box :inputName="'check1'" :checkList="checkList1" @setval="setVal" :disabled="disabled"/>
+      <check-box :inputName="'check2'" :checkList="checkList2" @setval="setVal" :disabled="disabled"/>
     </div>
-    <submit v-show="!isSubmitted"/>
+    <submit v-show="!disabled"/>
   </div>
 </template>
 
@@ -22,6 +24,7 @@ import Submit from '@/components/Submit'
 import TextInput from '@/components/TextInput'
 import PasswordInput from '@/components/PasswordInput'
 import CheckBox from '@/components/CheckBox'
+import PhoneInput from '@/components/PhoneInput'
 export default {
   name: 'App',
   components: {
@@ -30,23 +33,32 @@ export default {
     PasswordInput,
     CheckBox,
     Alert,
-    Submit
+    Submit,
+    PhoneInput
   },
   data() {
     return {
-        isSubmitted: false,
+        disabled: false,
         idError: false,
         passwordError: false,
+        nameError: false,
+        phoneError: false,
         alt1: false,
         alt2: false,
         inputValue: {
           id: "",
           password: "",
+          name: "",
+          phone: {
+            tel1: "",
+            tel2: "",
+            tel3: ""
+          },
           check1: [],
           check2: [],
         },
         checkList1: [{id: 'CK101', label: '개인정보 이용 약관 동의'},
-                    {id: 'CK102', label: '서비스 이용 약관 동의'}],
+                     {id: 'CK102', label: '서비스 이용 약관 동의'}],
         checkList2: [{id: 'CK201', label: '광고성 정보 수신 동의'}]
     }
   },
@@ -57,13 +69,13 @@ export default {
     },
     submit() {
       if (!this.chkVal()) {
-        this.isSubmitted = true;
+        this.disabled = true;
         this.alt1 = true;
         document.body.style.backgroundColor = "rgba(66, 66, 66, 0.8)";
       }
     },
     alertOk() {
-      this.isSubmitted = false;
+      this.disabled = false;
       this.alt1 = false;
       this.alt2 = false;
       document.body.style.backgroundColor = "";
@@ -73,6 +85,8 @@ export default {
       let error = false;
       this.idError = false;
       this.passwordError = false;
+      this.nameError = false;
+      this.phoneError = false;
       if (!val.id) {
         this.idError = true;
         this.$refs.inp01.$refs.id.focus();
@@ -84,9 +98,19 @@ export default {
           this.$refs.inp02.$refs.password.focus();
         error = true;
       }
-      if (!val.check1[0] || !val.check1[1] || !val.check2[0]) {
+      if (!val.name) {
+        this.nameError = true;
+        if (!error)
+          this.$refs.inp03.$refs.name.focus();
+        error = true;
+      }
+      if (!val.phone.tel2 || !val.phone.tel3) {
+        this.phoneError = true;
+        error = true;
+      }
+      if (!val.check1[0] || !val.check1[1]) {
         if (!error) {
-          this.isSubmitted = true;
+          this.disabled = true;
           this.alt2 = true;
           document.body.style.backgroundColor = "rgba(66, 66, 66, 0.8)";
         }
